@@ -10,6 +10,7 @@ const port = 3000; // Port ini harus sama dengan yang di Dockerfile/docker-compo
 app.use(cors()); // Mengizinkan request dari domain lain (frontend React kita)
 app.use(express.json()); // Parsing body request json
 //Tes commit -Xavier
+//Tes commit -Valentino
 
 // Konfigurasi koneksi database dari environment variables
 const db = mysql
@@ -41,16 +42,16 @@ app.get("/api/tasks", async (req, res) => {
 
 // 2. POST (Menambah task baru)
 app.post("/api/tasks", async (req, res) => {
-  const {task_name} = req.body;
+  const { task_name } = req.body;
   if (!task_name) {
-    return res.status(400).json({error: "task_name is required"});
+    return res.status(400).json({ error: "task_name is required" });
   }
 
   try {
     const [result] = await db.query("INSERT INTO task (task_name) VALUES (?)", [
       task_name,
     ]);
-    res.status(201).json({id: result.insertId, task_name, is_done: false});
+    res.status(201).json({ id: result.insertId, task_name, is_done: false });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Database error" });
