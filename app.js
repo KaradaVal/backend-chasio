@@ -8,7 +8,7 @@ const port = 3000; // Port ini harus sama dengan yang di Dockerfile/docker-compo
 
 // Middleware
 app.use(cors()); // Mengizinkan request dari domain lain (frontend React kita)
-app.use(express.json()); // Mem-parsing body request JSON
+app.use(express.json()); // Parsing body request json
 
 // Konfigurasi koneksi database dari environment variables
 const db = mysql
