@@ -21,7 +21,6 @@ const db = mysql
     port: process.env.DB_PORT || 3306, // Ambil port dari env, default 3306
     ssl: {
       mode: "REQUIRED",
-      ca: fs.readFileSync("/app/ca.pem", "utf-8"),
     },
     // ------------------------------
   })
