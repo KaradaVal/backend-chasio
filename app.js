@@ -22,8 +22,7 @@ const db = mysql
 
     port: process.env.DB_PORT || 3306, // Ambil port dari env, default 3306
     ssl: {
-      mode: "REQUIRED",
-      ca: fs.readFileSync("/app/ca.pem", "utf-8"), //Sertif SSL
+      rejectUnauthorized: false,
     },
     // ------------------------------
   })
@@ -36,7 +35,7 @@ app.get("/api/tasks", async (req, res) => {
     res.json(rows);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Database error" });
+    res.status(500).json({ error: `Database error : ${err}` });
   }
 });
 
@@ -54,7 +53,7 @@ app.post("/api/tasks", async (req, res) => {
     res.status(201).json({ id: result.insertId, task_name, is_done: false });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Database error" });
+    res.status(500).json({ error: `Database error : ${err}` });
   }
 });
 
@@ -67,7 +66,7 @@ app.put("/api/tasks/:id", async (req, res) => {
     res.status(200).json({ message: "Task updated" });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Database error" });
+    res.status(500).json({ error: `Database error : ${err}` });
   }
 });
 
@@ -79,7 +78,7 @@ app.delete("/api/tasks/:id", async (req, res) => {
     res.status(200).json({ message: "Task deleted" });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Database error" });
+    res.status(500).json({ error: `Database error : ${err}` });
   }
 });
 
